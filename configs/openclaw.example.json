@@ -1,0 +1,60 @@
+{
+  "env": {
+    "OPENCLAW_OPENAI_API_KEY": "${OPENCLAW_OPENAI_API_KEY}",
+    "OPENCLAW_ANTHROPIC_API_KEY": "${OPENCLAW_ANTHROPIC_API_KEY}",
+    "TELEGRAM_BOT_TOKEN": "${TELEGRAM_BOT_TOKEN}"
+  },
+  "models": {
+    "providers": {
+      "example-openai": {
+        "baseUrl": "https://api.openai.com/v1",
+        "api": "openai-responses",
+        "apiKey": "${OPENCLAW_OPENAI_API_KEY}",
+        "models": [
+          {
+            "id": "gpt-4.1",
+            "name": "GPT-4.1",
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    },
+    "mode": "merge"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "example-openai/gpt-4.1",
+        "fallbacks": [
+          "example-openai/gpt-4.1"
+        ]
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "name": "main",
+        "workspace": "./workspaces/main-agent-default"
+      },
+      {
+        "id": "support",
+        "name": "support",
+        "workspace": "./workspaces/support-agent-default",
+        "tools": {
+          "allow": [
+            "read",
+            "search"
+          ]
+        }
+      }
+    ]
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+local-data/
+logs/
+sessions/
+traces/
+*.db
+*.sqlite
+*.sqlite3
+node_modules/
+__pycache__/
+.DS_Store
